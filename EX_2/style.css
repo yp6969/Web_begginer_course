@@ -1,0 +1,22 @@
+#registration_col{
+    background-color: rgb(151, 202, 211);
+}
+
+select, input[type="text"]{
+    width:100%;
+    box-sizing:border-box;
+}
+
+input:hover{
+    background-color: rgb(145, 138, 138);
+    color: white;
+}
+
+input:hover::placeholder{
+    color: white !important;
+}
+
+form label{
+    font-weight:bold;
+}
+
