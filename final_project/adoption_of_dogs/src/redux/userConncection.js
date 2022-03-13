@@ -42,7 +42,7 @@ export const removeDogFromDogList = createAsyncThunk(
         pos: pos,
       }
     );
-    console.log(user.data);
+    console.log("user data = ", user.data);
     return user.data;
   }
 );

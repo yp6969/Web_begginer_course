@@ -41,7 +41,7 @@ export const allDogsSlice = createSlice({
     setObj: (state, action) => {
       state.obj = action.payload;
     },
-    //Settimg for values by key of employeer_reducer.
+    //Setting for values by key of employeer_reducer.
     setValuesByKey: (state, action) => {
       if (action.payload['key'] !== 'adoption')
         state.obj[action.payload['key']] = action.payload['value'];

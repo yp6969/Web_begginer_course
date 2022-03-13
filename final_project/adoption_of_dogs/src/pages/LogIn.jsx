@@ -4,13 +4,6 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { userConnection } from '../redux/userConncection';
 
-
-function validateForm(){
-  var email = document.getElementById('email_input');
-  // console.log(email);
-  console.log('laksjdlkajsdlkjasdlkjaslkdjasldkj');
-}
-
 const LogIn = (props) => {
   const user = useSelector((state) => state.user);
   console.log(user);
@@ -26,13 +19,13 @@ const LogIn = (props) => {
     dispatch(userConnection({ email: data.email, password: data.password }));
     setIsEmpty(true);
   };
+  
   useEffect(() => {
     if (user.status === 'noUsers' && isEmpty) {
       setIsEmpty(false);
       alert('check your details!');
     }
     if (user.status === 'success') {
-      console.log('________________');
       localStorage.setItem('User', JSON.stringify(user.obj));
       setIsSuccess(true);
     }
@@ -49,6 +42,7 @@ const LogIn = (props) => {
       setIsSuccess(false);
     }
   }, [isSuccess]);
+  
   return (
     <React.Fragment>
       <div className="">

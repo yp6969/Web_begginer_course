@@ -67,7 +67,7 @@ const CreateUser = () => {
             <div className="container">
               <div>
                 <label htmlFor="email">Email</label> <br />
-                <input placeholder='Email'
+                <input
                   {...register('email', { required: 'email is require!' })}
                   type="email"
                   name="email"
@@ -76,7 +76,7 @@ const CreateUser = () => {
               </div>
               <div>
                 <label htmlFor="password">Password</label> <br />
-                <input placeholder='Password'
+                <input
                   {...register('password', { required: 'email is require!' })}
                   type="password"
                   name="password"
@@ -85,7 +85,7 @@ const CreateUser = () => {
               </div>
               <div>
                 <label htmlFor="password1">Accept Password</label> <br />
-                <input placeholder='Accept Password'
+                <input
                   {...register('password1', { required: 'email is require!' })}
                   type="password"
                   name="password1"

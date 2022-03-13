@@ -13,13 +13,17 @@ const Home = () => {
   const user = useSelector((state) => state.user);
   const allDogs = useSelector((state) => state.allDogs);
   const [isDel, setIsDel] = useState(false);
+  // console.log("users = ", user);
+  // console.log("allDogs = ", allDogs);
   const removeDog = (i) => {
-    console.log(user);
-    console.log(allDogs);
+    // console.log("users = ", user);
+    // console.log("allDogs = ", allDogs);
     let newI = i;
+    let id
     for (let x in allDogs.obj) {
       if (allDogs.obj[x]._id === user.obj.dogsList[i]._id) {
         newI = x;
+        id = allDogs.obj[x]._id
       }
     }
     dispatch(
@@ -28,26 +32,37 @@ const Home = () => {
     dispatch(removeDogAction(i));
     dispatch(removeDogFromDogList({ email: user.obj.email, pos: i }));
     dispatch(setValuesByKey1({ key: newI, value: true }));
+    
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+    let localDogs = JSON.parse(localStorage.getItem('User'));
+    console.log("newI = ", newI);
+    console.log('localdogs = :', localDogs);
+
+    console.log("length", localDogs.dogsList.length);
+    for (let x = 0; x < localDogs.dogsList.length; x++) {
+      console.log("x = ", x);
+      if (localDogs.dogsList[x]._id === id) {
+        console.log(localDogs.dogsList[x]);
+        localDogs.dogsList.splice(x, 1);
+        localStorage.setItem('User', JSON.stringify(localDogs));
+      }
+    }
+    console.log("finnish for loop");
+    console.log('new local dogs = :', localDogs);
+    console.log("new local storege", JSON.parse(localStorage.getItem('User')));
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
+    // dispatch(setValuesByKey1({ key: index, value: false }));
+    // dispatch(postAvilable({ obj: allDogs.obj[index], avilable: false }));
+
   };
   const delAccount = async () => {
-    const msse = 'אתה בטוח שאתה קוצה למחוק את החשבון?';
+    const msse = 'Are you sure you want to delete the account';
     let del = window.confirm(msse);
     if (del === true) {
-      /* for (let x in allDogs.obj) {
-        for (let y in user.obj.dogsList) {
-          console.log(allDogs.obj[x]._id, user.obj.dogsList[y]._id);
-          if (allDogs.obj[x].name === user.obj.dogsList[y].name) {
-            console.log(allDogs.obj[x]);
-            dispatch(
-              postAvilable({
-                obj: allDogs.obj[x],
-                avilable: true,
-              })
-            );
-            dispatch(setValuesByKey1({ key: x, value: true }));
-          }
-        }
-      }*/
       try {
         const result = await axios.post('http://localhost:8000/DeleteUser', {
           obj: user.obj,
@@ -64,6 +79,7 @@ const Home = () => {
       console.log('not deleted!');
     }
   };
+
   useEffect(() => {
     if (isDel) {
       window.location.pathname = '/';
@@ -71,23 +87,19 @@ const Home = () => {
       setIsDel(false);
     }
   }, [user.obj.email]);
+
   return (
     <React.Fragment>
-      <h2>בית</h2>
-      <h3>רשימת אימוץ הכלבים שלי</h3>
+      <h2>Home</h2>
+      <h3>My Dog List</h3>
       <table className="table">
         <thead className="thead-dark">
-          {/* <tr>
-            <td>
-              <h3>רשימת אימוץ הכלבים שלי</h3>
-            </td>
-          </tr> */}
           <tr>
-            <th>פרטי הכלב</th>
+            <th>Dog info</th>
             <th> </th>
             <th> </th>
             <th> </th>
-            <th>מייל מאמץ</th>
+            <th>User Email</th>
           </tr>
         </thead>
         <tbody style={{ display: 'flex', justifyContent: 'center' }}>
@@ -120,7 +132,7 @@ const Home = () => {
                   );
                 })
               ) : (
-                <td>אין כלבים</td>
+                <td>No dogs to adopt</td>
               )}
             </div>
             <div className="col-2">
@@ -137,7 +149,7 @@ const Home = () => {
       <br />
       {user.obj.email !== '' ? (
         <button className="btn btn-danger" onClick={() => delAccount()}>
-          סימתי לבחור אפשר למחוק את החשבון
+          Adopt dogs and delete the User
         </button>
       ) : (
         ''

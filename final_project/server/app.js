@@ -56,7 +56,8 @@ app.post('/UserConnection', (req, res) => {
       req.body.obj.password
     );
     let resultNew;
-    result.then((result) => res.send(result)).catch((err) => res.send(false));
+    result.then((result) => res.send(result))
+    .catch((err) => res.send(false));
   }
 });
 
@@ -72,6 +73,7 @@ app.post('/CreateUser', (req, res) => {
       }
     });
 });
+
 //Delete user.
 app.post('/DeleteUser', (req, res) => {
   AllUsers.deleteOne(req.body.obj._id, (err) => {
