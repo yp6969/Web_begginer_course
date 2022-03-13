@@ -13,11 +13,9 @@ const Home = () => {
   const user = useSelector((state) => state.user);
   const allDogs = useSelector((state) => state.allDogs);
   const [isDel, setIsDel] = useState(false);
-  // console.log("users = ", user);
-  // console.log("allDogs = ", allDogs);
+
+
   const removeDog = (i) => {
-    // console.log("users = ", user);
-    // console.log("allDogs = ", allDogs);
     let newI = i;
     let id
     for (let x in allDogs.obj) {
@@ -32,10 +30,9 @@ const Home = () => {
     dispatch(removeDogAction(i));
     dispatch(removeDogFromDogList({ email: user.obj.email, pos: i }));
     dispatch(setValuesByKey1({ key: newI, value: true }));
-    
-/////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////
 
+    
+    // update the dog list in the local storage
     let localDogs = JSON.parse(localStorage.getItem('User'));
     console.log("newI = ", newI);
     console.log('localdogs = :', localDogs);
@@ -52,13 +49,8 @@ const Home = () => {
     console.log("finnish for loop");
     console.log('new local dogs = :', localDogs);
     console.log("new local storege", JSON.parse(localStorage.getItem('User')));
-
-    ////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////
-    // dispatch(setValuesByKey1({ key: index, value: false }));
-    // dispatch(postAvilable({ obj: allDogs.obj[index], avilable: false }));
-
   };
+
   const delAccount = async () => {
     const msse = 'Are you sure you want to delete the account';
     let del = window.confirm(msse);
@@ -82,7 +74,7 @@ const Home = () => {
 
   useEffect(() => {
     if (isDel) {
-      window.location.pathname = '/';
+      window.location.pathname = '/';  // go Home
       window.localStorage.url = window.location.pathname;
       setIsDel(false);
     }
